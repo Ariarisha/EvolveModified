@@ -121,9 +121,9 @@ export function gameLoop(act){
             break;
         case 'start':
             {
-                let main_timer = 250;
-                let mid_timer = 1000;
-                let long_timer = 5000;
+                let main_timer = 100;
+                let mid_timer = 500;
+                let long_timer = 1000;
                 if (global.race['slow']){
                     let slow = 1 + (traits.slow.vars()[0] / 100);
                     main_timer = Math.floor(main_timer * slow);
@@ -141,9 +141,9 @@ export function gameLoop(act){
                 calcATime();
                 
                 if (global.settings.at > 0){
-                    main_timer = Math.ceil(main_timer * 0.5);
-                    mid_timer = Math.ceil(mid_timer * 0.5);
-                    long_timer = Math.ceil(long_timer * 0.5);
+                    main_timer = Math.ceil(main_timer * 0.25);
+                    mid_timer = Math.ceil(mid_timer * 0.25);
+                    long_timer = Math.ceil(long_timer * 0.25);
                 }
 
                 if (webWorker.w){
@@ -175,8 +175,8 @@ function calcATime(){
         if (timeDiff >= 120000){
             global.settings.at += Math.floor(timeDiff / 3333);
         }
-        if (global.settings.at > 11520){
-            global.settings.at = 11520;
+        if (global.settings.at > 115200){
+            global.settings.at = 115200;
         }
     }
 }
@@ -705,8 +705,8 @@ export function costMultiplier(structure,offset,base,mutiplier,cat){
     if (nqVal){
         mutiplier -= nqVal;
     }
-    if (mutiplier < 1.005){
-        mutiplier = 1.005;
+    if (mutiplier < 1.003){
+        mutiplier = 1.003;
     }
     var count = structure === 'citizen' ? global['resource'][global.race.species].amount : (global[cat][structure] ? global[cat][structure].count : 0);
     if (offset){
@@ -737,8 +737,8 @@ export function spaceCostMultiplier(action,offset,base,mutiplier,sector){
     if (nqVal){
         mutiplier -= nqVal;
     }
-    if (mutiplier < 1.005){
-        mutiplier = 1.005;
+    if (mutiplier < 1.003){
+        mutiplier = 1.003;
     }
     var count = global[sector][action] ? global[sector][action].count : 0;
     if (offset && typeof offset === 'number'){
@@ -783,7 +783,7 @@ export function harmonyEffect(){
                 break;
         }
         if (boost > 0){
-            boost = (Math.log(50 + boost) - 3.912023005428146) * 0.01;
+            boost = (Math.log(50 + boost) - 3.912023005428146) * 0.03;
             return +(boost).toFixed(5);
         }
     }
@@ -1049,10 +1049,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'standard':
             if (global.race.universe === 'standard' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.001);
+                    dark *= 1 + (harmony * 0.03);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.03);
+                    dark *= 1 + (sludge * 0.06);
                 }
                 return 1 + (dark / 200);
             }
@@ -1061,10 +1061,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'evil':
             if (global.race.universe === 'evil' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.01);
+                    dark *= 1 + (harmony * 0.03);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.03);
+                    dark *= 1 + (sludge * 0.06);
                 }
                 return (1 + ((Math.log2(10 + dark) - 3.321928094887362) / 5));
             }
@@ -1074,24 +1074,24 @@ export function darkEffect(universe, flag, info, inputs){
             if (global.race.universe === 'micro' || info){
                 if (flag){
                     if (harmony > 0){
-                        dark *= 1 + (harmony * 0.01);
+                        dark *= 1 + (harmony * 0.03);
                     }
                     dark = 0.01 + (Math.log(100 + dark) - 4.605170185988092) / 35;
                     if (sludge){
-                        dark *= 1 + (sludge * 0.03);
+                        dark *= 1 + (sludge * 0.06);
                     }
-                    if (dark > 0.04){
-                        dark = 0.04;
+                    if (dark > 0.06){
+                        dark = 0.06;
                     }
                     return +(dark).toFixed(5);
                 }
                 else {
                     if (harmony > 0){
-                        dark *= 1 + (harmony * 0.01);
+                        dark *= 1 + (harmony * 0.03);
                     }
                     dark = 0.02 + (Math.log(100 + dark) - 4.605170185988092) / 20;
                     if (sludge){
-                        dark *= 1 + (sludge * 0.03);
+                        dark *= 1 + (sludge * 0.06);
                     }
                     if (dark > 0.06){
                         dark = 0.06;
@@ -1104,10 +1104,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'heavy':
             if (global.race.universe === 'heavy' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.01);
+                    dark *= 1 + (harmony * 0.03);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.03);
+                    dark *= 1 + (sludge * 0.06);
                 }
                 return 0.995 ** dark;
             }
@@ -1116,10 +1116,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'antimatter':
             if (global.race.universe === 'antimatter' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.01);
+                    dark *= 1 + (harmony * 0.03);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.03);
+                    dark *= 1 + (sludge * 0.06);
                 }
                 return 1 + (Math.log(50 + dark) - 3.912023005428146) / 5;
             }
@@ -1128,10 +1128,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'magic':
             if (global.race.universe === 'magic' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.01);
+                    dark *= 1 + (harmony * 0.03);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.03);
+                    dark *= 1 + (sludge * 0.06);
                 }
                 return 1 + (Math.log(50 + dark) - 3.912023005428146) / 3;
             }
@@ -1166,8 +1166,8 @@ export function masteryType(universe,detailed){
             u_rate -= 0.05;
         }
         if (global.race['weak_mastery'] && universe === 'antimatter'){
-            m_rate /= 10;
-            u_rate /= 10;
+            m_rate /= 5;
+            u_rate /= 5;
         }
         if (global.race['nerfed']){
             m_rate /= universe === 'antimatter' ? 5 : 2;
@@ -1205,8 +1205,8 @@ export const calcPillar = (function(){
                 }
             });
             bonus = [
-                1 + (active / 100), // Production
-                1 + (active * 2 / 100) // Storage
+                1.25 + (active / 100), // Production
+                1.05 + (active * 2 / 100) // Storage
             ];
         }
         return bonus;
@@ -1226,39 +1226,39 @@ export function challenge_multiplier(value,type,decimals,inputs){
     }
     let universe = inputs.uni || global.race.universe;
 
-    if (universe === 'micro'){ value = value * 0.25; }
-    if (universe === 'antimatter'){ value = value * 1.1; }
+    if (universe === 'micro'){ value = value * 0.5; }
+    if (universe === 'antimatter'){ value = value * 2.2; }
     if (universe === 'heavy' && type !== 'mad'){
         switch (challenge_level){
             case 1:
-                value = value * 1.1;
+                value = value * 2.2;
                 break;
             case 2:
-                value = value * 1.15;
+                value = value * 2.3;
                 break;
             case 3:
-                value = value * 1.2;
+                value = value * 2.4;
                 break;
             case 4:
-                value = value * 1.25;
+                value = value * 2.5;
                 break;
             default:
-                value = value * 1.05;
+                value = value * 2.1;
                 break;
         }
     }
     if (inputs.tp !== undefined ? inputs.tp : global.race['truepath']){
-        value = value * 1.1;
+        value = value * 2.2;
     }
     switch (challenge_level){
         case 1:
-            return +(value * 1.05).toFixed(decimals);
+            return +(value * 1.1).toFixed(decimals);
         case 2:
-            return +(value * 1.12).toFixed(decimals);
+            return +(value * 1.17).toFixed(decimals);
         case 3:
-            return +(value * 1.25).toFixed(decimals);
+            return +(value * 1.32).toFixed(decimals);
         case 4:
-            return +(value * 1.45).toFixed(decimals);
+            return +(value * 1.52).toFixed(decimals);
         default:
             return +(value).toFixed(decimals);
     }
@@ -1307,50 +1307,50 @@ export function calcPrestige(type,inputs){
     let k_inc = 1000000;
     let k_mult = 100;
     let phage_mult = 0;
-    let plasmid_cap = 150;
+    let plasmid_cap = 15000;
 
     switch (type){
         case 'mad':
             pop_divisor = 3;
             k_inc = 100000;
-            k_mult = 1.1;
-            plasmid_cap = 150;
+            k_mult = 2.2;
+            plasmid_cap = 15000;
             if (inputs.synth !== undefined ? inputs.synth : races[global.race.species].type === 'synthetic'){
                 pop_divisor = 5;
                 k_inc = 125000;
-                plasmid_cap = 100;
+                plasmid_cap = 10000;
             }
             break;
         case 'cataclysm':
         case 'bioseed':
             pop_divisor = 3;
             k_inc = 50000;
-            k_mult = 1.015;
-            phage_mult = 1;
-            plasmid_cap = 400;
+            k_mult = 2.03;
+            phage_mult = 2;
+            plasmid_cap = 40000;
             break;
         case 'ai':
             pop_divisor = 2.5;
             k_inc = 45000;
-            k_mult = 1.014;
-            phage_mult = 2;
-            plasmid_cap = 600;
+            k_mult = 2.028;
+            phage_mult = 4;
+            plasmid_cap = 60000;
             break;
         case 'vacuum':
         case 'bigbang':
             pop_divisor = 2.2;
             k_inc = 40000;
-            k_mult = 1.012;
-            phage_mult = 2.5;
-            plasmid_cap = 800;
+            k_mult = 2.024;
+            phage_mult = 5;
+            plasmid_cap = 80000;
             break;
         case 'ascend':
         case 'terraform':
             pop_divisor = 1.15;
             k_inc = 30000;
-            k_mult = 1.008;
-            phage_mult = 4;
-            plasmid_cap = 2000;
+            k_mult = 2.016;
+            phage_mult = 8;
+            plasmid_cap = 200000;
             break;
     }
 
@@ -1424,13 +1424,13 @@ export function calcPrestige(type,inputs){
         if (type === 'ascend' || type === 'terraform'){
             switch (universe){
                 case 'micro':
-                    harmony *= 0.25;
+                    harmony *= 0.5;
                     break;
                 case 'heavy':
-                    harmony *= 1.2;
+                    harmony *= 2.4;
                     break;
                 case 'antimatter':
-                    harmony *= 1.1;
+                    harmony *= 2.2;
                     break;
                 default:
                     break;
