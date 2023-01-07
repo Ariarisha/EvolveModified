@@ -2270,7 +2270,7 @@ export function bloodwar(){
         global.portal.fortress['pity'] = 0;
     }
 
-    let game_base = global.stats.achieve['technophobe'] && global.stats.achieve.technophobe.l >= 5 ? 9000 : 10000;
+    let game_base = global.stats.achieve['technophobe'] && global.stats.achieve.technophobe.l >= 5 ? 900 : 1000;
     let gem_chance = game_base - global.portal.fortress.pity;
     if (global.race.universe === 'evil' && global.race.Dark.count > 1){
         let de = global.race.Dark.count;
