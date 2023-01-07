@@ -783,7 +783,7 @@ export function harmonyEffect(){
                 break;
         }
         if (boost > 0){
-            boost = (Math.log(50 + boost) - 3.912023005428146) * 0.03;
+            boost = (Math.log(50 + boost) - 3.912023005428146) * 3.0;
             return +(boost).toFixed(5);
         }
     }
@@ -1049,10 +1049,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'standard':
             if (global.race.universe === 'standard' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.03);
+                    dark *= 1 + (harmony * 3);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.06);
+                    dark *= 1 + (sludge * 6);
                 }
                 return 1 + (dark / 200);
             }
@@ -1061,10 +1061,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'evil':
             if (global.race.universe === 'evil' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.03);
+                    dark *= 1 + (harmony * 3);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.06);
+                    dark *= 1 + (sludge * 6);
                 }
                 return (1 + ((Math.log2(10 + dark) - 3.321928094887362) / 5));
             }
@@ -1074,27 +1074,27 @@ export function darkEffect(universe, flag, info, inputs){
             if (global.race.universe === 'micro' || info){
                 if (flag){
                     if (harmony > 0){
-                        dark *= 1 + (harmony * 0.03);
+                        dark *= 1 + (harmony * 3);
                     }
                     dark = 0.01 + (Math.log(100 + dark) - 4.605170185988092) / 35;
                     if (sludge){
-                        dark *= 1 + (sludge * 0.06);
+                        dark *= 1 + (sludge * 6);
                     }
-                    if (dark > 0.06){
-                        dark = 0.06;
+                    if (dark > 6){
+                        dark = 6;
                     }
                     return +(dark).toFixed(5);
                 }
                 else {
                     if (harmony > 0){
-                        dark *= 1 + (harmony * 0.03);
+                        dark *= 1 + (harmony * 3);
                     }
                     dark = 0.02 + (Math.log(100 + dark) - 4.605170185988092) / 20;
                     if (sludge){
-                        dark *= 1 + (sludge * 0.06);
+                        dark *= 1 + (sludge * 6);
                     }
-                    if (dark > 0.06){
-                        dark = 0.06;
+                    if (dark > 6){
+                        dark = 6;
                     }
                     return +(dark).toFixed(5);
                 }
@@ -1104,10 +1104,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'heavy':
             if (global.race.universe === 'heavy' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.03);
+                    dark *= 1 + (harmony * 3);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.06);
+                    dark *= 1 + (sludge * 6);
                 }
                 return 0.995 ** dark;
             }
@@ -1116,10 +1116,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'antimatter':
             if (global.race.universe === 'antimatter' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.03);
+                    dark *= 1 + (harmony * 3);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.06);
+                    dark *= 1 + (sludge * 6);
                 }
                 return 1 + (Math.log(50 + dark) - 3.912023005428146) / 5;
             }
@@ -1128,10 +1128,10 @@ export function darkEffect(universe, flag, info, inputs){
         case 'magic':
             if (global.race.universe === 'magic' || info){
                 if (harmony > 0){
-                    dark *= 1 + (harmony * 0.03);
+                    dark *= 1 + (harmony * 3);
                 }
                 if (sludge){
-                    dark *= 1 + (sludge * 0.06);
+                    dark *= 1 + (sludge * 6);
                 }
                 return 1 + (Math.log(50 + dark) - 3.912023005428146) / 3;
             }
@@ -1159,8 +1159,8 @@ export function masteryType(universe,detailed){
     if (global.genes['challenge'] && global.genes['challenge'] >= 2){
         universe = universe || global.race.universe;
         let ua_level = universeLevel(universe);
-        let m_rate = universe === 'standard' ? 0.25 : 0.15;
-        let u_rate = global.genes['challenge'] >= 3 ? 0.15 : 0.1;
+        let m_rate = universe === 'standard' ? 25 : 15;
+        let u_rate = global.genes['challenge'] >= 3 ? 15 : 10;
         if (global.genes['challenge'] >= 4 && universe !== 'standard'){
             m_rate += 0.05;
             u_rate -= 0.05;
@@ -1227,38 +1227,38 @@ export function challenge_multiplier(value,type,decimals,inputs){
     let universe = inputs.uni || global.race.universe;
 
     if (universe === 'micro'){ value = value * 0.5; }
-    if (universe === 'antimatter'){ value = value * 2.2; }
+    if (universe === 'antimatter'){ value = value * 8.8; }
     if (universe === 'heavy' && type !== 'mad'){
         switch (challenge_level){
             case 1:
-                value = value * 2.2;
+                value = value * 8.8;
                 break;
             case 2:
-                value = value * 2.3;
+                value = value * 8.6;
                 break;
             case 3:
-                value = value * 2.4;
+                value = value * 8.8;
                 break;
             case 4:
-                value = value * 2.5;
+                value = value * 10;
                 break;
             default:
-                value = value * 2.1;
+                value = value * 8.2;
                 break;
         }
     }
     if (inputs.tp !== undefined ? inputs.tp : global.race['truepath']){
-        value = value * 2.2;
+        value = value * 8.8;
     }
     switch (challenge_level){
         case 1:
-            return +(value * 1.1).toFixed(decimals);
+            return +(value * 2.2).toFixed(decimals);
         case 2:
-            return +(value * 1.17).toFixed(decimals);
+            return +(value * 2.34).toFixed(decimals);
         case 3:
-            return +(value * 1.32).toFixed(decimals);
+            return +(value * 2.64).toFixed(decimals);
         case 4:
-            return +(value * 1.52).toFixed(decimals);
+            return +(value * 3.04).toFixed(decimals);
         default:
             return +(value).toFixed(decimals);
     }
@@ -1313,7 +1313,7 @@ export function calcPrestige(type,inputs){
         case 'mad':
             pop_divisor = 3;
             k_inc = 100000;
-            k_mult = 2.2;
+            k_mult = 8.8;
             plasmid_cap = 15000;
             if (inputs.synth !== undefined ? inputs.synth : races[global.race.species].type === 'synthetic'){
                 pop_divisor = 5;
@@ -1325,31 +1325,31 @@ export function calcPrestige(type,inputs){
         case 'bioseed':
             pop_divisor = 3;
             k_inc = 50000;
-            k_mult = 2.03;
-            phage_mult = 2;
+            k_mult = 8.06;
+            phage_mult = 3;
             plasmid_cap = 40000;
             break;
         case 'ai':
             pop_divisor = 2.5;
             k_inc = 45000;
-            k_mult = 2.028;
-            phage_mult = 4;
+            k_mult = 8.054;
+            phage_mult = 5;
             plasmid_cap = 60000;
             break;
         case 'vacuum':
         case 'bigbang':
             pop_divisor = 2.2;
             k_inc = 40000;
-            k_mult = 2.024;
-            phage_mult = 5;
+            k_mult = 8.048;
+            phage_mult = 6;
             plasmid_cap = 80000;
             break;
         case 'ascend':
         case 'terraform':
             pop_divisor = 1.15;
             k_inc = 30000;
-            k_mult = 2.016;
-            phage_mult = 8;
+            k_mult = 8.032;
+            phage_mult = 9;
             plasmid_cap = 200000;
             break;
     }
